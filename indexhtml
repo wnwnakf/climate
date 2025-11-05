@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>그린 아워 — 함께 만들자 푸르게 빛날 미래!</title>
+  <meta name="description" content="그린 아워( Green Hour ) - 환경 관련 미디어 콘텐츠(웹툰/영상/뉴스레터) 제작 및 확산을 목표로 하는 재단 공식 페이지" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f4fbf7;
+      --card:#ffffff;
+      --accent:#2c8f6a;
+      --accent-2:#1f6b4f;
+      --muted:#617368;
+      --soft:#eaf6ee;
+      --glass: rgba(255,255,255,0.8);
+      --max-width:1100px;
+      font-family: "Inter", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: light;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #f6fdfa 0%, #eef8f0 60%);
+      color: #0e2d26;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* 레이아웃 */
+    .container{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header.site-header{
+      position: sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
+      border-bottom: 1px solid rgba(20,60,40,0.04);
+    }
+    .site-header .container{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:14px 24px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:48px;height:48px;flex:0 0 48px;border-radius:10px;
+      display:grid;place-items:center;
+      background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      box-shadow: 0 6px 18px rgba(31,107,79,0.12);
+      color:white;font-weight:700;font-size:18px;
+    }
+
+    /* 작은 퍼즐 형태의 아이콘(간단한 SVG 대체) */
+    .logo svg{width:30px;height:30px;display:block}
+
+    .brand h1{
+      margin:0;font-size:16px;line-height:1;
+      font-weight:700;
+    }
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav.main-nav{
+      margin-left:auto;
+      display:flex;gap:12px;align-items:center;
+    }
+    nav.main-nav a{
+      text-decoration:none;color:var(--accent-2);padding:8px 12px;border-radius:8px;font-weight:600;
+    }
+    nav.main-nav a:hover{background:var(--soft)}
+
+    /* 히어로 */
+    .hero{
+      min-height:calc(100vh - 92px);
+      display:flex;
+      align-items:center;
+      gap:36px;
+      padding:56px 0;
+    }
+    .hero-left{
+      flex:1 1 540px;
+    }
+    .eyebrow{display:inline-block;background:var(--soft);color:var(--accent-2);padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;margin-bottom:10px;}
+    .hero-title{
+      font-size:36px;margin:6px 0 12px;line-height:1.05;
+      letter-spacing:-0.02em;
+    }
+    .hero-sub{font-size:17px;color:var(--muted);max-width:60ch;margin-bottom:18px}
+    .cta-group{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:700;
+    }
+    .btn.primary{background:var(--accent);color:white;box-shadow:0 10px 26px rgba(43,154,120,0.12)}
+    .btn.ghost{background:transparent;border:1px solid rgba(31,107,79,0.08);color:var(--accent-2)}
+
+    /* 히어로 오른쪽 카드(대표 이미지/요약) */
+    .hero-right{flex:0 0 380px;background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));border-radius:14px;padding:18px;box-shadow:0 6px 30px rgba(15,40,30,0.06)}
+    .mission{font-size:14px;color:var(--muted);margin-bottom:12px}
+    .pill{display:inline-block;background:var(--soft);padding:8px 10px;border-radius:999px;font-weight:700;color:var(--accent-2);font-size:13px}
+
+    /* 섹션 공통 */
+    section{padding:48px 0;border-bottom:1px solid rgba(20,60,40,0.03)}
+    .section-inner{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+    .section-title{font-size:22px;margin:0 0 12px;font-weight:700}
+    .section-lead{color:var(--muted);margin-bottom:18px}
+
+    /* 소개 블로그 스타일 */
+    .intro-card{
+      background:var(--card);padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(12,30,20,0.04);
+    }
+    .intro-card p{margin:10px 0;color:var(--muted)}
+    .meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .meta{background:var(--soft);padding:8px 12px;border-radius:999px;color:var(--accent-2);font-weight:700;font-size:13px}
+
+    /* 핵심 활동 카드 스타일 */
+    .activities{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+    .activity{
+      background:linear-gradient(180deg, rgba(250,255,252,0.9), #ffffff);border-radius:12px;padding:14px;border:1px solid rgba(18,80,60,0.04);
+    }
+    .activity h3{margin:0 0 8px;font-size:16px}
+    .activity p{margin:0;color:var(--muted);font-size:14px}
+
+    /* 캠페인 참여 */
+    .campaign-card{background:linear-gradient(180deg,#f8fffb,#ffffff);padding:18px;border-radius:12px;border:1px solid rgba(18,80,60,0.04)}
+    .form-row{display:grid;grid-template-columns:1fr 140px;gap:10px}
+    input[type="text"], input[type="email"], textarea, select{
+      width:100%;padding:10px;border-radius:10px;border:1px solid #e6f3ec;background:#fbfffd;font-size:14px;
+    }
+    textarea{min-height:110px;resize:vertical}
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+
+    /* 뉴스/스토리 (블로그 목록 스타일) */
+    .posts{display:grid;gap:14px}
+    .post{
+      display:flex;gap:14px;background:linear-gradient(180deg,#ffffff,#fbfffd);padding:14px;border-radius:12px;border:1px solid rgba(20,60,40,0.03);
+      align-items:center;
+    }
+    .thumb{width:110px;height:70px;border-radius:8px;flex:0 0 110px;background:linear-gradient(180deg,#dff6e9,#e6f9f0)}
+    .post h4{margin:0;font-size:15px}
+    .post p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    /* 후원/문의 */
+    .support{
+      display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    }
+    .support .support-info{max-width:640px}
+    .support .support-cta{display:flex;gap:10px;align-items:center}
+
+    /* 푸터 */
+    footer.site-footer{
+      padding:24px 0;background:transparent;color:var(--muted);font-size:13px;
+    }
+    .copyright{opacity:0.9}
+
+    /* 반응형 */
+    @media (max-width:1000px){
+      .section-inner{grid-template-columns:1fr}
+      .hero{flex-direction:column}
+      .hero-right{order:2;width:100%}
+      .hero-left{order:1}
+    }
+    @media (max-width:640px){
+      .hero-title{font-size:28px}
+      .container{padding:18px}
+      nav.main-nav{display:none}
+    }
+
+    /* 부드러운 스크롤 */
+    html{scroll-behavior:smooth}
+
+    /* 작은 유틸 */
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true" title="그린 아워 로고">
+          <!-- 퍼즐 조각 모양의 생태계 아이콘을 단순화한 SVG -->
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g transform="translate(8,8) scale(0.84)" fill="#fff">
+              <!-- 간단한 퍼즐 조각 형태 -->
+              <path d="M46 2c-6 0-11 5-11 11 0 2 .5 4 1.4 5.8C29.6 20.7 24 26 24 32c0 7.7 6.3 14 14 14h4v18h10V46h4c7.7 0 14-6.3 14-14 0-6-5.6-11.3-12.4-13.2C76.5 17 77 15 77 13 77 7 72 2 66 2H46z"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <h1>그린 아워</h1>
+          <p class="muted">함께 만들자 푸르게 빛날 미래!</p>
+        </div>
+      </div>
+
+      <nav class="main-nav" role="navigation" aria-label="주요">
+        <a href="#about">소개</a>
+        <a href="#activities">핵심활동</a>
+        <a href="#campaign">캠페인 참여</a>
+        <a href="#news">뉴스/스토리</a>
+        <a href="#support">후원/문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-left">
+          <span class="eyebrow">환경미디어 재단</span>
+          <h2 class="hero-title">그린 아워 — 우리의 이야기를 전하고, 행동을 연결합니다.</h2>
+          <p class="hero-sub">웹툰과 영상, 뉴스레터로 환경 이야기를 쉽고 매력적으로 전달합니다. 개인의 작은 행동이 모여 건강한 생태계를 만듭니다. 함께 읽고, 공유하고, 참여해 주세요.</p>
+          <div class="cta-group">
+            <button class="btn primary" id="joinCampaignBtn">캠페인 참여하기</button>
+            <button class="btn ghost" id="subscribeBtn">뉴스레터 받기</button>
+          </div>
+
+          <div style="margin-top:18px;color:var(--muted);font-size:13px">
+            <strong>핵심 활동:</strong> 환경 관련 미디어 콘텐츠(웹툰 / 영상 / 뉴스레터) 제작 및 확산
+          </div>
+        </div>
+
+        <aside class="hero-right">
+          <div class="mission pill">퍼즐처럼 연결되는 생태계</div>
+          <h3 style="margin-top:12px;margin-bottom:8px">우리의 미션</h3>
+          <p class="muted" style="margin:0 0 12px">퍼즐 조각처럼 다양한 목소리와 지식을 모아, 모두가 이해하고 행동할 수 있는 콘텐츠를 제작합니다.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div style="background:var(--soft);padding:10px 12px;border-radius:10px;font-weight:700;color:var(--accent-2)">웹툰</div>
+            <div style="background:var(--soft);padding:10px 12px;border-radius:10px;font-weight:700;color:var(--accent-2)">영상</div>
+            <div style="background:var(--soft);padding:10px 12px;border-radius:10px;font-weight:700;color:var(--accent-2)">뉴스레터</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 소개 -->
+    <section id="about" aria-labelledby="aboutTitle">
+      <div class="container section-inner">
+        <article>
+          <h2 id="aboutTitle" class="section-title">소개</h2>
+          <p class="section-lead">그린 아워는 환경 관련 미디어 콘텐츠를 제작하고, 그 콘텐츠를 통해 사람들과 커뮤니티를 연결하여 지속가능한 행동으로 이끄는 재단입니다.</p>
+
+          <div class="intro-card">
+            <p>우리는 복잡한 환경 문제를 이야기로 풀어냅니다. 웹툰으로 감정과 이야기를 전달하고, 짧은 영상으로 메시지를 확산하며, 심층 뉴스레터로 배경지식을 제공합니다. 누구나 공감할 수 있는 형식으로 전환하여 더 많은 사람이 환경을 이해하고 참여하도록 돕습니다.</p>
+            <div class="meta-row" aria-hidden="false">
+              <div class="meta">아이콘: 퍼즐 조각 모양의 생태계</div>
+              <div class="meta">슬로건: 함께 만들자 푸르게 빛날 미래!</div>
+            </div>
+          </div>
+        </article>
+
+        <aside>
+          <div style="background:linear-gradient(180deg,#f7fffb,#ffffff);padding:16px;border-radius:12px;border:1px solid rgba(20,60,40,0.03)">
+            <h4 style="margin:0 0 8px">빠른 링크</h4>
+            <ul style="list-style:none;padding:0;margin:0;color:var(--muted);line-height:2">
+              <li><a href="#activities">핵심활동 보기</a></li>
+              <li><a href="#campaign">캠페인 참여</a></li>
+              <li><a href="#news">최신 스토리</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 핵심활동 -->
+    <section id="activities" aria-labelledby="actTitle">
+      <div class="container section-inner">
+        <div>
+          <h2 id="actTitle" class="section-title">핵심활동</h2>
+          <p class="section-lead">콘텐츠 제작을 통한 인식 개선과 행동 촉진 — 창의적 형식으로 메시지를 전달합니다.</p>
+
+          <div class="activities" role="list">
+            <div class="activity" role="listitem">
+              <h3>웹툰 프로젝트</h3>
+              <p>환경 이슈를 캐릭터와 스토리로 풀어 공감대를 확장합니다. 학교·커뮤니티 배포용으로도 제작합니다.</p>
+            </div>
+
+            <div class="activity" role="listitem">
+              <h3>영상 캠페인</h3>
+              <p>짧고 임팩트 있는 영상으로 소셜 미디어에서 빠르게 확산되도록 기획·제작합니다.</p>
+            </div>
+
+            <div class="activity" role="listitem">
+              <h3>뉴스레터</h3>
+              <p>심층 기사, 인터뷰, 행동 가이드 등을 정기 발행하여 구독자와 지속적으로 소통합니다.</p>
+            </div>
+
+            <div class="activity" role="listitem">
+              <h3>교육·워크숍</h3>
+              <p>청소년과 지역 커뮤니티를 위한 워크숍과 미디어 리터러시 교육을 제공합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div style="padding:16px;border-radius:12px;background:linear-gradient(180deg,#ffffff,#fbfffd);border:1px solid rgba(20,60,40,0.03)">
+            <h4 style="margin-top:0">성과</h4>
+            <p class="muted" style="margin:6px 0">지난 해 웹툰 누적 조회수: <strong>120만+</strong></p>
+            <p class="muted" style="margin:6px 0">영상 캠페인 평균 공유율: <strong>18%</strong></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 캠페인 참여 -->
+    <section id="campaign" aria-labelledby="campTitle">
+      <div class="container section-inner">
+        <div>
+          <h2 id="campTitle" class="section-title">캠페인 참여</h2>
+          <p class="section-lead">작은 행동이 모여 큰 변화를 만듭니다. 지금 참여해 보세요.</p>
+
+          <div class="campaign-card" aria-hidden="false">
+            <form id="campaignForm" onsubmit="return false;">
+              <label class="muted" for="name">이름</label>
+              <input id="name" name="name" type="text" placeholder="홍길동" required>
+
+              <label class="muted" for="email" style="margin-top:10px">이메일</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+              <label class="muted" for="interest" style="margin-top:10px">참여 희망 분야</label>
+              <select id="interest" name="interest">
+                <option>웹툰 제작</option>
+                <option>영상 제작</option>
+                <option>뉴스레터 편집</option>
+                <option>커뮤니티 운영</option>
+              </select>
+
+              <label class="muted" for="message" style="margin-top:10px">한 줄 메시지 (선택)</label>
+              <textarea id="message" name="message" placeholder="함께하고 싶어요!"></textarea>
+
+              <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                <button class="btn primary" id="submitCampaign" type="submit">참여 신청</button>
+                <button class="btn ghost" id="clearCampaign" type="button">지우기</button>
+              </div>
+
+              <div class="note" id="campaignNote">※ 제출은 시뮬레이션입니다. 실제 후속 연락은 담당자가 직접 연락드립니다.</div>
+            </form>
+            <div id="campaignMsg" style="margin-top:12px;color:var(--accent-2);font-weight:700;display:none"></div>
+          </div>
+        </div>
+
+        <aside>
+          <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg,#f7fffb,#ffffff);border:1px solid rgba(20,60,40,0.03)">
+            <h4 style="margin:0 0 8px">캠페인 일정</h4>
+            <p class="muted" style="margin:0 0 8px">다음 워크숍: <strong>2025-11-20</strong> (예시)</p>
+            <p class="muted" style="margin:0">문의: <a href="mailto:hello@greenhour.org">hello@greenhour.org</a></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 뉴스/스토리 -->
+    <section id="news" aria-labelledby="newsTitle">
+      <div class="container section-inner">
+        <div>
+          <h2 id="newsTitle" class="section-title">뉴스 / 스토리</h2>
+          <p class="section-lead">최근 제작 콘텐츠와 이야기들을 소개합니다.</p>
+
+          <div class="posts" id="postsList" role="list">
+            <!-- 자바스크립트로 동적 생성 -->
+          </div>
+          <div style="margin-top:12px">
+            <button class="btn ghost" id="loadMore">더 보기</button>
+          </div>
+        </div>
+
+        <aside>
+          <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg,#ffffff,#fbfffd);border:1px solid rgba(20,60,40,0.03)">
+            <h4 style="margin:0 0 8px">주목 콘텐츠</h4>
+            <p class="muted" style="margin:0 0 8px">웹툰 시리즈: <strong>작은 숲의 목격자</strong></p>
+            <p class="muted" style="margin:0">영상: <strong>한 시간의 녹색 습관</strong></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 후원/문의 -->
+    <section id="support" aria-labelledby="supportTitle">
+      <div class="container section-inner">
+        <div>
+          <h2 id="supportTitle" class="section-title">후원 / 문의</h2>
+          <p class="section-lead">재단 활동을 응원하고, 함께 협력해 주세요.</p>
+
+          <div class="intro-card">
+            <div class="support">
+              <div class="support-info">
+                <p class="muted" style="margin:0 0 8px">후원은 프로젝트 제작 및 지역 커뮤니티 교육에 사용됩니다. 투명한 회계와 보고를 약속합니다.</p>
+                <p style="margin:0"><strong>계좌정보:</strong> 국민은행 000-000-0000 (예시)</p>
+              </div>
+              <div class="support-cta">
+                <button class="btn primary" id="donateBtn">후원하기</button>
+                <button class="btn ghost" id="contactBtn">문의하기</button>
+              </div>
+            </div>
+
+            <hr style="border:none;border-top:1px solid rgba(20,60,40,0.04);margin:12px 0">
+
+            <form id="contactForm" onsubmit="return false;">
+              <label class="muted" for="contactName">이름</label>
+              <input id="contactName" name="contactName" type="text" required>
+
+              <label class="muted" for="contactEmail" style="margin-top:10px">이메일</label>
+              <input id="contactEmail" name="contactEmail" type="email" required>
+
+              <label class="muted" for="contactMessage" style="margin-top:10px">문의 내용</label>
+              <textarea id="contactMessage" name="contactMessage" required></textarea>
+
+              <div style="margin-top:10px;display:flex;gap:10px">
+                <button class="btn primary" id="sendContact" type="submit">보내기</button>
+                <button class="btn ghost" id="clearContact" type="button">지우기</button>
+              </div>
+
+              <div id="contactMsg" style="margin-top:10px;display:none;font-weight:700;color:var(--accent-2)"></div>
+            </form>
+          </div>
+        </div>
+
+        <aside>
+          <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg,#fff,#fbfffd);border:1px solid rgba(20,60,40,0.03)">
+            <h4 style="margin:0 0 8px">연락처</h4>
+            <p class="muted" style="margin:0 0 6px">이메일: <a href="mailto:hello@greenhour.org">hello@greenhour.org</a></p>
+            <p class="muted" style="margin:0 0 6px">SNS: @greenhour (예시)</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:700">그린 아워</div>
+          <div class="muted" style="margin-top:6px">퍼즐 조각 모양의 생태계 아이콘 · 환경 미디어 콘텐츠 제작</div>
+        </div>
+        <div style="text-align:right">
+          <div class="copyright">이 홈페이지의 지적 소유권은 재단에 있다.</div>
+          <div class="muted" style="margin-top:6px">© <span id="year"></span> 그린 아워</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // 안전성 체크: 모든 DOM 엘리먼트가 존재하는지 기본 검증 후 기능 바인딩
+    (function(){
+      // 기본 데이터(예시 게시물)
+      const posts = [
+        {title:"웹툰 연재: 작은 숲의 목격자 - 1화", excerpt:"도시 근처 작은 숲에서 일어난 변화와 발견을 다룬 첫 화.", date:"2025-10-01"},
+        {title:"영상 공개: 한 시간의 녹색 습관", excerpt:"하루 1시간, 녹색 습관으로 바뀐 사람들의 이야기.", date:"2025-09-20"},
+        {title:"뉴스레터 Vol.12: 플라스틱 대신 선택할 수 있는 것들", excerpt:"플라스틱 대체물질과 일상에서의 선택 방법을 정리했습니다.", date:"2025-08-15"}
+      ];
+
+      // DOM 요소 안전 참조
+      const postsList = document.getElementById('postsList');
+      const loadMoreBtn = document.getElementById('loadMore');
+      const joinCampaignBtn = document.getElementById('joinCampaignBtn');
+      const subscribeBtn = document.getElementById('subscribeBtn');
+      const campaignForm = document.getElementById('campaignForm');
+      const campaignMsg = document.getElementById('campaignMsg');
+      const clearCampaign = document.getElementById('clearCampaign');
+      const submitCampaign = document.getElementById('submitCampaign');
+      const donateBtn = document.getElementById('donateBtn');
+      const contactBtn = document.getElementById('contactBtn');
+      const contactForm = document.getElementById('contactForm');
+      const contactMsg = document.getElementById('contactMsg');
+      const clearContact = document.getElementById('clearContact');
+
+      // 연도 자동 표시
+      const yearSpan = document.getElementById('year');
+      if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+      // 게시물 렌더 함수
+      function renderPosts(list){
+        if(!postsList) return;
+        list.forEach(p => {
+          const el = document.createElement('article');
+          el.className = 'post';
+          el.innerHTML = `
+            <div class="thumb" aria-hidden="true"></div>
+            <div>
+              <h4>${escapeHtml(p.title)}</h4>
+              <p class="muted">${escapeHtml(p.excerpt)}</p>
+              <div class="muted" style="margin-top:8px;font-size:12px">${escapeHtml(p.date)}</div>
+            </div>
+          `;
+          postsList.appendChild(el);
+        });
+      }
+
+      // 초기 게시물
+      renderPosts(posts.slice(0,2));
+
+      // 더보기 버튼
+      if(loadMoreBtn){
+        loadMoreBtn.addEventListener('click', function(){
+          renderPosts(posts.slice(2));
+          loadMoreBtn.style.display = 'none';
+        });
+      }
+
+      // 캠페인 폼 처리 (시뮬레이션)
+      if(submitCampaign && campaignForm){
+        submitCampaign.addEventListener('click', function(ev){
+          ev.preventDefault();
+          const name = (document.getElementById('name')||{}).value || '';
+          const email = (document.getElementById('email')||{}).value || '';
+          const interest = (document.getElementById('interest')||{}).value || '';
+          if(!name || !email){ showCampaignMsg('이름과 이메일을 입력해 주세요.', true); return; }
+          showCampaignMsg('참여 신청이 접수되었습니다. 감사합니다! (시뮬레이션)', false);
+          // 폼 리셋(선택)
+          campaignForm.reset();
+        });
+      }
+
+      function showCampaignMsg(text, isError){
+        if(!campaignMsg) return;
+        campaignMsg.style.display = 'block';
+        campaignMsg.style.color = isError ? '#d9534f' : 'var(--accent-2)';
+        campaignMsg.textContent = text;
+        setTimeout(()=>{ if(campaignMsg) campaignMsg.style.display = 'none'; }, 4200);
+      }
+
+      if(clearCampaign && campaignForm){
+        clearCampaign.addEventListener('click', ()=> campaignForm.reset());
+      }
+
+      // 후원 & 문의
+      if(donateBtn){
+        donateBtn.addEventListener('click', ()=> {
+          alert('후원 페이지로 이동합니다. (예시)'); // 실제 페이지로 링크할 수 있음
+        });
+      }
+      if(contactBtn){
+        contactBtn.addEventListener('click', ()=> {
+          // 스크롤해서 문의 폼으로 포커스
+          const el = document.getElementById('contactName');
+          if(el){ el.focus(); window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth' }); }
+        });
+      }
+      if(contactForm && document.getElementById('sendContact')){
+        document.getElementById('sendContact').addEventListener('click', function(ev){
+          ev.preventDefault();
+          const name = (document.getElementById('contactName')||{}).value || '';
+          const email = (document.getElementById('contactEmail')||{}).value || '';
+          const message = (document.getElementById('contactMessage')||{}).value || '';
+          if(!name || !email || !message){ showContactMsg('모든 항목을 작성해 주세요.', true); return; }
+          showContactMsg('문의가 전송되었습니다. 곧 담당자가 연락드립니다. (시뮬레이션)', false);
+          contactForm.reset();
+        });
+      }
+      if(clearContact){
+        clearContact.addEventListener('click', ()=> contactForm.reset());
+      }
+
+      // 뉴스레터 구독 모달(간단)
+      if(subscribeBtn){
+        subscribeBtn.addEventListener('click', ()=> {
+          const email = prompt('뉴스레터를 받으실 이메일을 입력해 주세요:');
+          if(email && /\S+@\S+\.\S+/.test(email)){
+            alert('구독이 등록되었습니다. 감사합니다! (시뮬레이션)');
+          } else if(email !== null){
+            alert('유효한 이메일을 입력해 주세요.');
+          }
+        });
+      }
+
+      // 캠페인 바로가기 버튼
+      if(joinCampaignBtn){
+        joinCampaignBtn.addEventListener('click', ()=> {
+          const camp = document.getElementById('campaign');
+          if(camp) camp.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      }
+
+      // Escape/Enter 키를 이용한 접근성 개선 (간단)
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape'){
+          // 닫을 모달이 있으면 닫는 동작 등 (현재 모달 없음)
+        }
+      });
+
+      // 안전: escape HTML 텍스트로 삽입 (XSS 예방)
+      function escapeHtml(str){
+        if(!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      // 마지막으로 간단한 런타임 체크(콘솔에 메시지)
+      try {
+        console.info('그린 아워 홈페이지 스크립트 로드 완료');
+      } catch(err){
+        console.error('스크립트 실행 중 오류:', err);
+      }
+    })();
+  </script>
+</body>
+</html>
